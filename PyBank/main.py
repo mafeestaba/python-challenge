@@ -1,6 +1,7 @@
 import os
 import csv
 
+#Create variables
 profitorloss = []
 totalprofitorloss = 0
 average = 0
@@ -10,6 +11,7 @@ minprofit = 0
 minprofitdate = []
 maxprofitdate = []
 
+#create path
 csvpath = os.path.join("Resources","budget_data.csv")
 txtpath = os.path.join("analysis","budget_analysis.txt")
 
@@ -21,6 +23,7 @@ with open(csvpath) as csvfile:
     totalprofitorloss += int(rowfirst[1])
     previous = int(rowfirst[1])
     
+    #for loop to find month and change
     for row in csvreader:
         t_months = t_months + 1
         totalprofitorloss += int(row[1])
@@ -28,13 +31,15 @@ with open(csvpath) as csvfile:
         profitorloss.append(change)
         previous = int(row[1])
 
+        #find max and min 
         if change > maxprofit:
             maxprofit = change
             maxprofitdate = row[0]
         if change < minprofit:
             minprofit = change
             minprofitdate = row[0]
-
+            
+#average change
 average = round(sum(profitorloss) / len(profitorloss), 2)
 
 output = (
